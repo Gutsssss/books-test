@@ -1,26 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>{{arr}}</div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+const arr = [
+  {author:"1",title:"1",publishedDate:"01.01.2025",categories:["1","2"],id:1},
+  {author:"1",title:"1",publishedDate:"01.01.2025",categories:["1","2"],id:2},
+  {author:"1",title:"1",publishedDate:"01.01.2025",categories:["1","2"],id:3},
+  {author:"1",title:"1",publishedDate:"01.01.2025",categories:["1","2"],id:4},]
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>
