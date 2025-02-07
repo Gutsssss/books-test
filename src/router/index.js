@@ -6,13 +6,15 @@ const router = createRouter({
     routes: [
       {
         path: "/",
-        name: "Home",
+        label: "Home",
         component: HomeView,
+        icon: 'pi pi-home'
       },
       {
         path: "/books",
-        name: "Books",
+        label: "Books",
         component: BooksView,
+        icon: 'pi pi-book'
       }]
   });
   

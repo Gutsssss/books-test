@@ -4,7 +4,7 @@
     <MyNavigation/>
   </div>
   <div v-show="!isLoading">
-   <RouterView :books="BooksArr"/>
+   <RouterView :books="BooksArr" @loadBooks="loadMore()"/>
   </div>
   <div v-show="isLoading">
   <MyLoader/>
@@ -20,11 +20,18 @@ import MyLoader from './components/MyLoader.vue';
 
 let BooksArr = ref([])
 let isLoading = ref(false)
+let startIndex = ref(0)
+// const searchParam = ref('')
 
-const getBooks = async () => {
+const getBooks = async (searchParam) => {
   try {
     isLoading.value = true
-    const response = await axios.get("https://content-books.googleapis.com/books/v1/volumes?langRestrict=eng&maxResults=40&q=harry%20poter")
+    const response = await axios.get("https://content-books.googleapis.com/books/v1/volumes?langRestrict=eng&maxResults=10",{
+      params:{
+        startIndex:0,
+        q:searchParam
+      }
+    })
     return BooksArr.value = response.data.items
   }catch(e) {
     console.log(e)
@@ -33,7 +40,25 @@ const getBooks = async () => {
     isLoading.value = false
   }
 }
-getBooks()
+const loadMore = async (searchParam) => {
+  startIndex.value = startIndex.value + 1
+  try {
+    isLoading.value = true
+    const response = await axios.get("https://content-books.googleapis.com/books/v1/volumes?langRestrict=eng&maxResults=10&q=harry%20poter",{
+      params:{
+        startIndex:startIndex.value,
+        q:searchParam
+      }
+    })
+    return BooksArr.value.push(...response.data.items)
+  }catch(e) {
+    console.log(e)
+  }
+  finally {
+    isLoading.value = false
+  }
+}
+getBooks("Harry Potter")
 </script>
 
 <style>

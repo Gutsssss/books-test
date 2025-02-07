@@ -1,7 +1,11 @@
 <template>
     <div class="dialog" v-if="show" @click.stop="hideDialog">
-        <div @click.stop class="dialog__content text-green-200">
-            Книга: {{ bookData.volumeInfo?.title }}
+        <div @click.stop class="dialog__content">
+            <p><strong>Книга: </strong>{{ bookData.volumeInfo?.title }}</p>
+            <p v-for="author in bookData.volumeInfo?.authors" :key="author"><strong>Автор:</strong>{{ author }}</p>
+            <p v-for="category in bookData.volumeInfo?.categories" :key="category"><strong>Категория:</strong>{{ category }}</p>
+            <p v-if="bookData.volumeInfo?.publishedDate"><strong>Дата публикации: </strong>{{ bookData.volumeInfo?.publishedDate }}</p>
+            <p v-if="bookData.volumeInfo?.description"><strong>Описание: </strong>{{ bookData.volumeInfo?.description }}</p>
         </div>
     </div>
 </template>
@@ -25,22 +29,5 @@ const hideDialog = () => {
 </script>
 
 <style scoped>
-.dialog{
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    display: flex;
-}
-.dialog__content {
-    margin: auto;
-    background: white;
-    border-radius: 12px;
-    min-height: 50px;
-    min-width: 300px;
-    padding: 10px;
-}
 
 </style>
