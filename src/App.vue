@@ -7,7 +7,7 @@
    <RouterView :books="BooksArr" @loadBooks="loadMore(searchParam)" @saveChanges="onSaveChanges"/>
    <div class="observer"></div>
   </div>
-  <div v-show="isLoading">
+  <div class="loader" v-show="isLoading">
   <MyLoader/>
   </div>
   </div>
@@ -102,5 +102,10 @@ observer.observe(observerRef)
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="text-lg">
+    <div class="loader">
         Загрузка...
     </div>
 </template>
@@ -8,6 +8,9 @@
 
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.loader {
+    font-size: 50px;
+    color: white;
+}
 </style>

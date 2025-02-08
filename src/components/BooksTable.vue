@@ -27,7 +27,7 @@
     <MyModal :bookData="bookData" v-model:show="showModalDescription"/>
     <ModalEdit :book-title="titleText" @update:book-title="$event => titleText = $event" @save-changes="saveChanges" v-model:show="showModalEdit"/>
   </div>
-  <Button @click="$emit('loadBooks')">Загрузить еще</Button>
+  <!-- <Button @click="$emit('loadBooks')">Загрузить еще</Button> -->
 </template> 
 
 <script setup>
