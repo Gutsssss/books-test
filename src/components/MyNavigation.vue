@@ -8,8 +8,10 @@
                 </RouterLink>
             </template>
             <template #end>
-        
-            <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
+                <div>
+            <InputText :model-value="searchInput" @input="updateSearchInput" placeholder="Search" type="text" class="w-32 sm:w-auto" />
+            <Button :style="{'display':(searchInput && searchInput.length < 250) ? '' : 'none'}" style="margin: 10px; padding:0" icon="pi pi-search" @click="$emit('search',searchInput)" severity="secondary" rounded/>
+            </div>
         
     </template>
         </Menubar>
@@ -17,8 +19,19 @@
 </template>
 
 <script setup>
-import { Menubar,InputText } from 'primevue';
+import { Menubar,InputText,Button } from 'primevue';
 import router from '@/router';
+import {defineProps,defineEmits} from 'vue'
+defineProps({
+    searchInput:{
+        type:[String,Number],
+    }
+})
+const emit = defineEmits(['update:searchInput','search'])
+
+const updateSearchInput = (event) => {
+    emit('update:searchInput',event.target.value)
+}
 </script>
 <style>
 .card {

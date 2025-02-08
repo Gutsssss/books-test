@@ -1,6 +1,6 @@
 <template>
     <div>
-    <BooksTable :books="books" @load-books="$emit('loadBooks')"/>
+    <BooksTable :books="books" @saveChanges="data => $emit('saveChanges',data)" @load-books="$emit('loadBooks')"/>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ defineProps({
     required:true
   }
 })
-defineEmits(['loadBooks'])
+defineEmits(['loadBooks','saveChanges'])
 
 
 

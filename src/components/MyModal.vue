@@ -15,7 +15,6 @@ import { defineProps,defineEmits } from 'vue';
 defineProps({
     bookData:{
         type:Object,
-        required:true
     },
     show:{
         type:Boolean,

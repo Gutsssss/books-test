@@ -1,5 +1,5 @@
 <template>
-    <DataTable :value="books" tableStyle="min-width: 50rem">
+    <DataTable :value="books" tableStyle="min-width: 50rem;min-height:100rem">
     <Column field="volumeInfo?.authors" header="Author">
     <template #body="slotProps">
         <span v-for="authors in slotProps.data.volumeInfo?.authors" :key="authors">{{ authors + " " }}</span>
@@ -9,7 +9,7 @@
     <Column field="volumeInfo.publishedDate" header="PublishedDate"></Column>
     <Column field="volumeInfo?.categories" header="Categories">
     <template #body="slotProps">
-      <span v-for="category in slotProps.data.volumeInfo?.categories" :key="category">{{category}}</span>
+      <span v-for="category in slotProps.data.volumeInfo?.categories" :key="category">{{category + " "}}</span>
     </template>
   </Column>
     <Column class="w-24 !text-end">
@@ -24,8 +24,8 @@
     </Column>
 </DataTable>
   <div>
-    <MyModal :bookData="bookData" v-model:show="showModal"/>
-    <ModalEdit :book-title="titleText" v-model:show="showModalEdit" @update:bookTitle="titleText = $event" @save-changes="editTilte(titleText)"/>
+    <MyModal :bookData="bookData" v-model:show="showModalDescription"/>
+    <ModalEdit :book-title="titleText" @update:book-title="$event => titleText = $event" @save-changes="saveChanges" v-model:show="showModalEdit"/>
   </div>
   <Button @click="$emit('loadBooks')">Загрузить еще</Button>
 </template> 
@@ -42,24 +42,29 @@ defineProps({
         required:true
     }
 })
-defineEmits(['loadBooks'])
+const emit = defineEmits(['loadBooks','saveChanges'])
+
 const titleText = ref("")
-const showModal = ref(false)
+const showModalDescription = ref(false)
 const showModalEdit = ref(false)
 const bookData = ref({})
+
 const logModal = (data) => {
   bookData.value = data
-  showModal.value = true
+  showModalDescription.value = true
 }
 const modalEditFunc = (data) =>{
-  showModalEdit.value = true
+  bookData.value = data
   titleText.value = data.volumeInfo.title
-}
-const editTilte = (data) => {
-  titleText.value = data
-  showModalEdit.value = false
+  showModalEdit.value = true
 }
 
+const saveChanges = (data) => {
+  const newTitle =  structuredClone(bookData.value)
+  newTitle.volumeInfo.title = data
+  showModalEdit.value = false
+  emit('saveChanges',newTitle)
+}
 </script>
 
 <style lang="scss" scoped>
